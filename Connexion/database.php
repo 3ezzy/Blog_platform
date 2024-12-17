@@ -6,12 +6,9 @@ $dbname = 'Blog_DB';
 
 $connection = new mysqli($host,$username,$password,$dbname);
 
-/*if (!$connection){
-    echo "connection failed";
-}else{
-    echo "connection good";
-}*/
-
-
+// if (!$connection){
+//     echo "connection failed";
+// }else{
+//     echo "connection good";
+// }
 ?>
-
