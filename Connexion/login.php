@@ -7,14 +7,15 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     // Check if email and password are not empty
     if (!empty($email) && !empty($password)) {
-        // Prepare SQL to fetch the user
-        $stmt = $connection->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, $password);
+        // Prepare SQL to fetch the user by email
+        $stmt = $connection->prepare("SELECT * FROM user WHERE email = ?");
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if ($user) {
+        // Verify password
+        if ($user && password_verify($password, $user['password'])) {
             $token = bin2hex(random_bytes(16));
 
             // Insert into userLogin table
