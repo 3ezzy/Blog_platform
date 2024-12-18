@@ -27,9 +27,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role'] = $user['role'];
 
 
-            header("Location: ../index.php");
+            if ($_SESSION['role'] === 'admin') {
+                header("Location: ../admin.php");
+            } else {
+                header("Location: ../index.php");
+            }
             exit;
         } else {
             echo "Invalid email or password.";
@@ -81,7 +86,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 </head>
 
 <body class="dark:bg-neutral-900">
-<header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
+    <header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
         <nav class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 sm:px-6 lg:px-8 py-2">
             <!-- Logo w/ Collapse Button -->
             <div class="flex items-center justify-between">
