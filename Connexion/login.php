@@ -17,6 +17,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         // Verify password
         if ($user && password_verify($password, $user['password'])) {
+
             $token = bin2hex(random_bytes(16));
 
             // Insert into userLogin table
@@ -24,7 +25,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $stmt->bind_param("is", $user['id'], $token);
             $stmt->execute();
 
-
+            $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];
 
 
