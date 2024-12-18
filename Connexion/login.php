@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'database.php';
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -23,9 +24,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $stmt->bind_param("is", $user['id'], $token);
             $stmt->execute();
 
-            // Set cookies
-            setcookie("user_id", $user['id'], time() + (86400 * 7), "/"); // Valid for 7 days
-            setcookie("auth_token", $token, time() + (86400 * 7), "/");
+
+            $_SESSION['user_id'] = $user['id'];
+
 
             header("Location: ../index.php");
             exit;
