@@ -1,23 +1,47 @@
 <?php
 include 'database.php';
 
-if (isset($_POST['full_name']) && isset($_POST['email']) && isset($_POST['password'])) {
+
+if (!$connection) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+
+if (
+    !empty($_POST['full_name']) && !empty($_POST['email']) && !empty($_POST['password']) &&
+    !empty($_POST['username']) && !empty($_POST['role'])
+) {
+
+    
     $full_name = $_POST['full_name'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $username = $_POST['username'];
+    
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role = $_POST['role'];
 
-    $stmt = $conn->prepare("INSERT INTO User (full_name, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $full_name, $email, $password);
+    
+    $stmt = $connection->prepare("INSERT INTO User 
+                            VALUES (NULL, ?, ?, ?, ?, ?, current_timestamp(), current_timestamp())");
+    $stmt->bind_param("sssss", $full_name, $email, $username, $password, $role);
 
     if ($stmt->execute()) {
-        echo "Registration successful. <a href='login.php'>Login here</a>";
+        header("Location: login.php"); 
+        exit;
     } else {
-        echo "Error: " . $stmt->error;
+
+        echo "Error: " . htmlspecialchars($stmt->error);
     }
 
+    
     $stmt->close();
+} else {
+    
+    echo "All fields are required!";
 }
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -153,62 +177,72 @@ if (isset($_POST['full_name']) && isset($_POST['email']) && isset($_POST['passwo
                 <div class="text-center">
                     <h1 class="block text-2xl font-bold text-gray-800">Register</h1>
                     <p class="mt-2 text-sm text-gray-600">
-                        you have an account 
+                        you have an account
                         <a class="text-blue-600 hover:underline font-medium" href="login.php">sing in</a>
                     </p>
                 </div>
 
                 <div class="mt-6">
-                    
+
                     <!-- Form -->
-                    <form>
-    <div class="grid gap-y-4">
-        <!-- Full Name -->
-        <div>
-            <label for="full_name" class="block text-sm mb-2">Full Name</label>
-            <input type="text" id="full_name" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your full name" required>
-        </div>
+                    <form method="POST">
+                        <div class="grid gap-y-4">
+                            <!-- Full Name -->
+                            <div>
+                                <label for="full_name" class="block text-sm mb-2">Full Name</label>
+                                <input type="text" id="full_name" name="full_name"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Enter your full name" required>
+                            </div>
 
-        <!-- Username -->
-        <div>
-            <label for="username" class="block text-sm mb-2">Username</label>
-            <input type="text" id="username" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your username" required>
-        </div>
+                            <!-- Username -->
+                            <div>
+                                <label for="username" class="block text-sm mb-2">Username</label>
+                                <input type="text" id="username" name="username"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Enter your username" required>
+                            </div>
 
-        <!-- Email -->
-        <div>
-            <label for="email" class="block text-sm mb-2">Email address</label>
-            <input type="email" id="email" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email" required>
-        </div>
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-sm mb-2">Email address</label>
+                                <input type="email" id="email" name="email"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Enter your email" required>
+                            </div>
 
-        <!-- Password -->
-        <div>
-            <label for="password" class="block text-sm mb-2">Password</label>
-            <input type="password" id="password" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your password" required>
-        </div>
+                            <!-- Password -->
+                            <div>
+                                <label for="password" class="block text-sm mb-2">Password</label>
+                                <input type="password" id="password" name="password"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Enter your password" required>
+                            </div>
 
+                            <!-- Confirm Password -->
+                            <div>
+                                <label for="confirm_password" class="block text-sm mb-2">Confirm Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Confirm your password" required>
+                            </div>
 
-        <div>
-            <label for="password" class="block text-sm mb-2">Confirm Password</label>
-            <input type="password" id="password" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your password" required>
-        </div>
-        
+                            <!-- Role Selection -->
+                            <div>
+                                <label for="role" class="block text-sm mb-2">Role</label>
+                                <select id="role" name="role"
+                                    class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                                    required>
+                                    <option value="utilisateur">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
 
-        <!-- Role Selection -->
-        <div>
-            <label for="role" class="block text-sm mb-2">Role</label>
-            <select id="role" class="py-2.5 px-4 block w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" required>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full py-2.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">Register</button>
+                        </div>
+                    </form>
 
-
-
-        <!-- Submit Button -->
-        <button type="submit" class="w-full py-2.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">Register</button>
-    </div>
-</form>
 
                 </div>
             </div>

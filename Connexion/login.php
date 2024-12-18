@@ -23,7 +23,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         setcookie("user_id", $user['id'], time() + (86400 * 7), "/"); // Valid for 7 days
         setcookie("auth_token", $token, time() + (86400 * 7), "/");
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit;
     } else {
         echo "Invalid email or password.";
@@ -176,7 +176,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <div class="mt-6">
                     
                     <!-- Form -->
-                    <form>
+                    <form method="POST">
                         <div class="grid gap-y-4">
                             <div>
                                 <label for="email" class="block text-sm mb-2">Email address</label>
