@@ -28,8 +28,8 @@ session_start();
             </div>
             <ul id="sidebarMenu" class="hidden md:block mt-6 md:mt-12 space-y-6">
                 <li><a href="admin.php" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Dashboard</a></li>
-                <li><a href="user.php" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Users</a></li>
-                <li><a href="article.php" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Articles</a></li>
+                <li><a href="dashuser.php" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Users</a></li>
+                <li><a href="dasharticle.php" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Articles</a></li>
                 <li><a href="#" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Orders</a></li>
                 <li><a href="#" class="block py-3 px-6 text-lg hover:bg-blue-700 transition duration-200">Settings</a></li>
             </ul>
