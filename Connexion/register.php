@@ -48,27 +48,6 @@ if (
 <html lang="en">
 
 <head>
-    <!-- Required Meta Tags Always Come First -->
-    <meta charset="utf-8">
-    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="https://preline.co/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-
-    <meta name="twitter:site" content="@preline">
-    <meta name="twitter:creator" content="@preline">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Creative Agency Demo Template Tailwind CSS | Preline UI, crafted with Tailwind CSS">
-    <meta name="twitter:description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-    <meta name="twitter:image" content="https://preline.co/assets/img/og-image.png">
-
-    <meta property="og:url" content="https://preline.co/">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Preline">
-    <meta property="og:title" content="Creative Agency Demo Template Tailwind CSS | Preline UI, crafted with Tailwind CSS">
-    <meta property="og:description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-    <meta property="og:image" content="https://preline.co/assets/img/og-image.png">
 
     <!-- Title -->
     <title>Blog</title>
@@ -83,8 +62,7 @@ if (
 </head>
 
 <body class="dark:bg-neutral-900">
-    <!-- ========== HEADER ========== -->
-    <header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
+    <header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full hidden">
         <nav class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 sm:px-6 lg:px-8 py-2">
             <!-- Logo w/ Collapse Button -->
             <div class="flex items-center justify-between">

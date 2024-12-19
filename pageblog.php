@@ -1,37 +1,18 @@
 <?php
 include 'Connexion/database.php';
 session_start();
+
+
+
+$connection->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required Meta Tags Always Come First -->
-    <meta charset="utf-8">
-    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="https://preline.co/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-
-    <meta name="twitter:site" content="@preline">
-    <meta name="twitter:creator" content="@preline">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Creative Agency Demo Template Tailwind CSS | Preline UI, crafted with Tailwind CSS">
-    <meta name="twitter:description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-    <meta name="twitter:image" content="https://preline.co/assets/img/og-image.png">
-
-    <meta property="og:url" content="https://preline.co/">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Preline">
-    <meta property="og:title" content="Creative Agency Demo Template Tailwind CSS | Preline UI, crafted with Tailwind CSS">
-    <meta property="og:description" content="From bold visuals to interactive elements, this template is fully customizable to suit your unique needs and preferences.">
-    <meta property="og:image" content="https://preline.co/assets/img/og-image.png">
-
-    <!-- Title -->
     <title>Blog</title>
-
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://preline.co/favicon.ico">
 
@@ -80,8 +61,7 @@ session_start();
                             Home
                         </a>
 
-                        <a class="p-2 flex items-center text-sm text-blue-600 focus:outline-none focus:text-blue-600 " href="#">
-                            
+                        <a class="p-2 flex items-center text-sm text-blue-600 focus:outline-none focus:text-blue-600" href="#">
                             <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
@@ -109,13 +89,9 @@ session_start();
                             About us
                         </a>
 
-
-                        <!-- End Dropdown -->
-
                         <!-- Button Group -->
                         <div class="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2">
                             <?php
-
                             if (isset($_SESSION['username'])) {
                                 $username = $_SESSION['username'];
                                 // Display username if logged in
@@ -123,14 +99,12 @@ session_start();
                             ?>
                                 <a class="p-2 w-full flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500" href="Connexion/logout.php">
                                     <svg class="shrink-0 size-4 me-3 md:me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                                        <!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                                         <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
                                     </svg>
                                     Log out
                                 </a>
                             <?php
                             } else {
-
                             ?>
                                 <a class="p-2 w-full flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500" href="Connexion/login.php">
                                     <svg class="shrink-0 size-4 me-3 md:me-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -143,8 +117,6 @@ session_start();
                             }
                             ?>
                         </div>
-
-
                         <!-- End Button Group -->
                     </div>
                 </div>
@@ -152,15 +124,11 @@ session_start();
             <!-- End Collapse -->
         </nav>
     </header>
-    
 
+    <a href="addArticle.php"  class="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500 justify-center items-center">
+        Add Article
+    </a>
 
-
-
-
-
-    <!-- JS PLUGINS -->
-    <!-- Required plugins -->
     <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
     <script src="./node_modules/preline/dist/preline.js"></script>
 </body>

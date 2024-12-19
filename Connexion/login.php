@@ -24,7 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $stmt = $connection->prepare("INSERT INTO userLogin (userId, token) VALUES (?, ?)");
             $stmt->bind_param("is", $user['id'], $token);
             $stmt->execute();
-
+            
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
@@ -86,7 +86,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 </head>
 
 <body class="dark:bg-neutral-900">
-    <header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
+    <header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full hidden">
         <nav class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 sm:px-6 lg:px-8 py-2">
             <!-- Logo w/ Collapse Button -->
             <div class="flex items-center justify-between">
@@ -204,6 +204,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
+    <script src="./node_modules/preline/dist/preline.js"></script>
 </body>
 
 </html>
