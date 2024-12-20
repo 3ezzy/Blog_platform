@@ -2,15 +2,13 @@
 include 'Connexion/database.php';
 session_start();
 
-$query = "SELECT * FROM article";
+// Assume database connection is already made
+$id = $_GET['id'];
+$query = "SELECT * FROM article WHERE id = $id";
 $result = $connection->query($query);
-
-if (!$result) {
-    die("Query failed: " . $connection->error);
-}
-
-$connection->close();
+$row = $result->fetch_assoc();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -128,39 +126,23 @@ $connection->close();
             <!-- End Collapse -->
         </nav>
     </header>
-
-    <!-- Add Article Button -->
-    <div class="flex justify-center items-center mt-4">
-        <a href="addArticle.php" class="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500">
-            Add Article
-        </a>
-    </div>
-
-    <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-12 px-6">
-        <h1 class="text-3xl font-semibold text-center text-gray-900 mb-10">Blog Articles</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="group w-full max-w-xs mx-auto border border-gray-300 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div class="relative">
-                        <img src="<?= $row['image']; ?>" alt="Blog image" class="w-full h-56 object-cover rounded-t-3xl">
-                        <span class="absolute top-4 left-4 text-white bg-indigo-600 px-3 py-1 text-sm rounded-lg"><?= date("M j, Y", strtotime($row['created_at'])); ?></span>
-                    </div>
-                    <div class="p-6 bg-white">
-                        <h4 class="text-2xl font-semibold text-gray-800 mb-4"><?= $row['title']; ?></h4>
-                        <p class="text-gray-600 text-base mb-6"><?= substr($row['content'], 0, 150); ?>...</p>
-                        <a href="showarticle.php?id=<?= $row['id']; ?>" class="text-indigo-600 font-semibold hover:underline">Read more...</a>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-        </div>
+        <article class="bg-white shadow-xl rounded-3xl p-8 transform transition-all hover:scale-105 hover:shadow-2xl duration-300">
+            <h1 class="text-4xl font-semibold text-gray-900 mb-6"><?= $row['title']; ?></h1>
+            <p class="text-sm text-gray-500 mb-6"><?= date("M j, Y", strtotime($row['created_at'])); ?></p>
+            <img src="<?= $row['image']; ?>" alt="Article image" class="w-full h-96 object-cover rounded-3xl mb-6 transform transition-all hover:opacity-80 duration-200">
+            <div class="text-gray-700 mb-8"><?= $row['content']; ?></div>
+
+            <!-- Comment Form -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Leave a Comment</h3>
+                <form action="submit_comment.php" method="POST" class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <input type="hidden" name="article_id" value="<?= $row['id']; ?>">
+                    <textarea name="comment" rows="4" class="w-full p-4 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200" placeholder="Write your comment..."></textarea>
+                    <button type="submit" class="bg-indigo-600 text-white py-3 px-8 rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out transform hover:scale-105">Post Comment</button>
+                </form>
+            </div>
+        </article>
     </main>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
-    <script src="./node_modules/preline/dist/preline.js"></script>
-
 </body>
-
-</html>
