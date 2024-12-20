@@ -2,8 +2,22 @@
 include 'Connexion/database.php';
 session_start();
 
-$query = "SELECT * FROM article";
-$result = $connection->query($query);
+if (!isset($_SESSION['user_id'])) {
+    die("Please log in to view your articles.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+$query = "SELECT * FROM article WHERE user_id = ?";
+$stmt = $connection->prepare($query);
+
+if (!$stmt) {
+    die("Preparation failed: " . $connection->error);
+}
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+// $result = $connection->query($query);
 
 if (!$result) {
     die("Query failed: " . $connection->error);
