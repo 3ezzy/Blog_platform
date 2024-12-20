@@ -152,22 +152,32 @@ $connection->close();
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-12 px-6">
-        <h1 class="text-3xl font-semibold text-center text-gray-900 mb-10">Blog Articles</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="group w-full max-w-xs mx-auto border border-gray-300 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div class="relative">
-                        <img src="<?= $row['image']; ?>" alt="Blog image" class="w-full h-56 object-cover rounded-t-3xl">
-                        <span class="absolute top-4 left-4 text-white bg-indigo-600 px-3 py-1 text-sm rounded-lg"><?= date("M j, Y", strtotime($row['created_at'])); ?></span>
-                    </div>
-                    <div class="p-6 bg-white">
-                        <h4 class="text-2xl font-semibold text-gray-800 mb-4"><?= $row['title']; ?></h4>
-                        <p class="text-gray-600 text-base mb-6"><?= substr($row['content'], 0, 150); ?>...</p>
-                        <a href="showarticle.php?id=<?= $row['id']; ?>" class="text-indigo-600 font-semibold hover:underline">Read more...</a>
-                    </div>
+    <h1 class="text-3xl font-semibold text-center text-gray-900 mb-10">Blog Articles</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <div class="group w-full max-w-xs mx-auto border border-gray-300 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="relative">
+                    <img src="<?= $row['image']; ?>" alt="Blog image" class="w-full h-56 object-cover rounded-t-3xl">
+                    <span class="absolute top-4 left-4 text-white bg-indigo-600 px-3 py-1 text-sm rounded-lg"><?= date("M j, Y", strtotime($row['created_at'])); ?></span>
                 </div>
-            <?php endwhile; ?>
-        </div>
+                <div class="p-6 bg-white">
+                    <h4 class="text-2xl font-semibold text-gray-800 mb-4"><?= $row['title']; ?></h4>
+                    <p class="text-gray-600 text-base mb-6"><?= substr($row['content'], 0, 150); ?>...</p>
+                    
+                    <div class="flex space-x-4">
+                        <a href="editArticle.php?id=<?= $row['id']; ?>" class="text-blue-600 font-semibold hover:underline">Edit</a>
+                        
+                        <a href="deleteArticle.php?id=<?= $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this article?');" class="text-red-600 font-semibold hover:underline">Delete</a>
+                    </div>
+                    
+                    <a href="showarticle.php?id=<?= $row['id']; ?>" class="text-indigo-600 font-semibold hover:underline mt-4 block">Read more...</a>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    </div>
+</main>
+
+        
     </main>
 
 
