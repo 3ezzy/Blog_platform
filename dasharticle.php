@@ -2,6 +2,8 @@
 include 'Connexion/database.php';
 session_start();
 
+$query = "SELECT * FROM article";
+$result = $connection->query($query);
 
 ?>
 
@@ -54,31 +56,28 @@ session_start();
                 <table class="min-w-full table-auto">
                     <thead class="bg-gray-200">
                         <tr>
-                            <th class="py-4 px-6 text-left text-gray-600">ID</th>
+                            <th class="py-4 px-6 text-left text-gray-600">Article ID</th>
                             <th class="py-4 px-6 text-left text-gray-600">Title</th>
-                            <th class="py-4 px-6 text-left text-gray-600">Content</th>
-                            <th class="py-4 px-6 text-left text-gray-600">Image</th>
-                            <th class="py-4 px-6 text-left text-gray-600">User ID</th>
-                            <th class="py-4 px-6 text-left text-gray-600">Tags ID</th>
+                            <th class="py-4 px-6 text-left text-gray-600">content</th>
+                            <th class="py-4 px-6 text-left text-gray-600">image</th>
                             <th class="py-4 px-6 text-left text-gray-600">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="py-3 px-6">#001</td>
-                            <td class="py-3 px-6">Introduction to Tailwind CSS</td>
-                            <td class="py-3 px-6">A guide to getting started with Tailwind CSS.</td>
-                            <td class="py-3 px-6">
-                                <img src="https://via.placeholder.com/100" alt="Article Image" class="w-20 h-20 object-cover">
-                            </td>
-                            <td class="py-3 px-6">12</td>
-                            <td class="py-3 px-6">5</td>
-                            <td class="py-3 px-6">
-                                <button class="bg-yellow-500 text-white px-4 py-2 rounded-full mr-3 hover:bg-yellow-400 transition duration-200">Edit</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-400 transition duration-200">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows as needed -->
+                        <?php while ($article = $result->fetch_assoc()) : ?>
+                            <tr>
+                                <td class="py-3 px-6"><?= $article['id'] ?></td>
+                                <td class="py-3 px-6"><?= $article['title'] ?></td>
+                                <td class="py-3 px-6"><?= $article['content'] ?></td>
+                                <td class="py-3 px-6"><?= $article['image']?></td>
+                                <td class="py-3 px-6">
+                                    <!-- Edit Button -->
+                                    <a href="editArticle.php?id=<?= $article['id'] ?>" class="bg-yellow-500 text-white px-4 py-2 rounded-full mr-3 hover:bg-yellow-400 transition duration-200">Edit</a>
+                                    <!-- Delete Button -->
+                                    <a href="dasharticle.php?id=<?= $article['id'] ?>" class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-400 transition duration-200">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
